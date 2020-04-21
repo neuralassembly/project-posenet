@@ -111,6 +111,18 @@ Run a simple demo like this:
 python3 pose_camera.py
 ```
 
+If you don't have Coral Edge TPU, please try this:
+
+```bash
+python3 pose_camera_cpu.py
+```
+
+You can also try the OpenCV version without Coral Edge TPU like this:
+
+```bash
+python3 pose_camera_cpu_cv.py
+```
+
 If the camera and monitor are both facing you, consider adding the `--mirror` flag:
 
 ```bash
