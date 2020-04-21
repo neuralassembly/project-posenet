@@ -60,7 +60,8 @@ def draw_pose(img, pose, src_size, appsink_size, color='yellow', minPartConfiden
         kp_x = int(scale_x*keypoint.yx[1])
         xys[label] = (kp_x, kp_y)
         kscore[label] = keypoint.score
-        cv2.circle(img, (kp_x, kp_y), 5, color=(0, 255, 255, 255*keypoint.score), thickness=-1)
+        cv2.circle(img, (kp_x, kp_y), 5, color=(209, 156, 0), thickness=-1) #cyan
+        cv2.circle(img, (kp_x, kp_y), 6, color=(0, 255, 255), thickness=1) #yellow
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
