@@ -42,13 +42,14 @@ EDGES = (
     ('right knee', 'right ankle'),
 )
 
+
 def shadow_text(img, x, y, text, font_size=16):
     cv2.putText(img, text,(x+1, y+1), 
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
     cv2.putText(img, text,(x, y), 
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)                  
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 
-def draw_pose(img, pose, src_size, appsink_size, color='yellow', minPartConfidence=0.1):
+def draw_pose(img, pose, src_size, appsink_size, color=(0, 255, 255), minPartConfidence=0.1):
     scale_x = src_size[0] / appsink_size[0]
     scale_y = src_size[1] / appsink_size[1]
     xys = {}
@@ -61,14 +62,14 @@ def draw_pose(img, pose, src_size, appsink_size, color='yellow', minPartConfiden
         xys[label] = (kp_x, kp_y)
         kscore[label] = keypoint.score
         cv2.circle(img, (kp_x, kp_y), 5, color=(209, 156, 0), thickness=-1) #cyan
-        cv2.circle(img, (kp_x, kp_y), 6, color=(0, 255, 255), thickness=1) #yellow
+        cv2.circle(img, (kp_x, kp_y), 6, color=color, thickness=1)
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
         if kscore[a] < minPartConfidence or kscore[b] < minPartConfidence: continue
         ax, ay = xys[a]
         bx, by = xys[b]
-        cv2.line(img, (ax, ay), (bx, by), (0, 255, 255), 2)
+        cv2.line(img, (ax, ay), (bx, by), color, 2)
 
 def avg_fps_counter(window_size):
     window = collections.deque(maxlen=window_size)
@@ -122,7 +123,7 @@ def main():
                        dsize=appsink_size, 
                        interpolation=cv2.INTER_NEAREST)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    
+
         start_time = time.monotonic()
         outputs, inference_time = engine.ParseOutput(engine.run_inference(img))
         end_time = time.monotonic()
@@ -147,7 +148,7 @@ def main():
         
     cap.release()
     cv2.destroyAllWindows()
-    return 
+    return
 
 if __name__ == '__main__':
     main()
