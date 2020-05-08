@@ -141,6 +141,12 @@ def main():
         depth_image = np.asanyarray(depth_data)
         depth_image = cv2.cvtColor(depth_image, cv2.COLOR_RGB2BGR)
 
+        if (color_image_rgb.shape[0] != appsink_size[1] or 
+            color_image_rgb.shape[1] != appsink_size[0]) :
+            color_image_rgb = cv2.resize(color_image_rgb, 
+                                  dsize=appsink_size, 
+                                  interpolation=cv2.INTER_NEAREST)
+
         start_time = time.monotonic()
         outputs, inference_time = engine.DetectPosesInImage(color_image_rgb)
         end_time = time.monotonic()
