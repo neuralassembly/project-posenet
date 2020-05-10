@@ -108,7 +108,7 @@ def run(inf_callback, render_callback):
 
     print('Loading model: ', model)
     engine = PoseEngine(model,
-                        offsetRefineStep=2, scoreThreshold=0.8,
+                        offsetRefineStep=10, scoreThreshold=0.8,
                         maxPoseDetections=5, nmsRadius=30, minPoseConfidence=0.15)
     input_shape = engine.get_input_tensor_shape()
     inference_size = (input_shape[2], input_shape[1])

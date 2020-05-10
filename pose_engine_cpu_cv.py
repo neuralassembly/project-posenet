@@ -289,12 +289,12 @@ class PoseEngine:
                     y += offsets_mid_bwd_y[maxindex, edge]
                     x += offsets_mid_bwd_x[maxindex, edge]
 
-                    y_index = np.clip(y // self.heatmaps_stride_y, 0, self.heatmaps_ny-1)
-                    x_index = np.clip(x // self.heatmaps_stride_x, 0, self.heatmaps_nx-1)
+                    y_index = np.clip(round(y / self.heatmaps_stride_y), 0, self.heatmaps_ny-1)
+                    x_index = np.clip(round(x / self.heatmaps_stride_x), 0, self.heatmaps_nx-1)
                     maxindex_list[nPoses, targetKeypointId] = self.heatmaps_nx*y_index + x_index
                     for i in range(self.offsetRefineStep):
-                        y_index = np.clip(y // self.heatmaps_stride_y, 0, self.heatmaps_ny-1)
-                        x_index = np.clip(x // self.heatmaps_stride_x, 0, self.heatmaps_nx-1)
+                        y_index = np.clip(round(y / self.heatmaps_stride_y), 0, self.heatmaps_ny-1)
+                        x_index = np.clip(round(x / self.heatmaps_stride_x), 0, self.heatmaps_nx-1)
                         maxindex_list[nPoses, targetKeypointId] = self.heatmaps_nx*y_index + x_index
                         y = self.heatmaps_stride_y * y_index
                         x = self.heatmaps_stride_x * x_index
@@ -316,12 +316,12 @@ class PoseEngine:
                     y += offsets_mid_fwd_y[maxindex, edge]
                     x += offsets_mid_fwd_x[maxindex, edge]
 
-                    y_index = np.clip(y // self.heatmaps_stride_y, 0, self.heatmaps_ny-1)
-                    x_index = np.clip(x // self.heatmaps_stride_x, 0, self.heatmaps_nx-1)
+                    y_index = np.clip(round(y / self.heatmaps_stride_y), 0, self.heatmaps_ny-1)
+                    x_index = np.clip(round(x / self.heatmaps_stride_x), 0, self.heatmaps_nx-1)
                     maxindex_list[nPoses, targetKeypointId] = self.heatmaps_nx*y_index + x_index
                     for i in range(self.offsetRefineStep):
-                        y_index = np.clip(y // self.heatmaps_stride_y, 0, self.heatmaps_ny-1)
-                        x_index = np.clip(x // self.heatmaps_stride_x, 0, self.heatmaps_nx-1)
+                        y_index = np.clip(round(y / self.heatmaps_stride_y), 0, self.heatmaps_ny-1)
+                        x_index = np.clip(round(x / self.heatmaps_stride_x), 0, self.heatmaps_nx-1)
                         maxindex_list[nPoses, targetKeypointId] = self.heatmaps_nx*y_index + x_index
                         y = self.heatmaps_stride_y * y_index
                         x = self.heatmaps_stride_x * x_index
@@ -331,7 +331,7 @@ class PoseEngine:
                     pose_list[nPoses, targetKeypointId, 0] = y
                     pose_list[nPoses, targetKeypointId, 1] = x
                     score_list[nPoses, targetKeypointId] = heatmaps[maxindex_list[nPoses, targetKeypointId], targetKeypointId]
-            
+ 
             # calclate pose score
             score = 0 
             for k in range(len(KEYPOINTS)):

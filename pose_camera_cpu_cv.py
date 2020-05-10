@@ -108,7 +108,7 @@ def main():
 
     print('Loading model: ', model)
     engine = PoseEngine(model, mirror=args.mirror, 
-                        offsetRefineStep=2, scoreThreshold=0.8,
+                        offsetRefineStep=10, scoreThreshold=0.8,
                         maxPoseDetections=5, nmsRadius=30, minPoseConfidence=0.15)
 
     n = 0
