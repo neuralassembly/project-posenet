@@ -118,7 +118,10 @@ def main():
     fps_counter  = avg_fps_counter(30)
 
     pipeline = rs.pipeline()
-    pipeline.start()
+    config = rs.config()
+    config.enable_stream(rs.stream.depth, src_size[0], src_size[1], rs.format.z16, 30)
+    config.enable_stream(rs.stream.color, src_size[0], src_size[1], rs.format.rgb8, 30)
+    pipeline.start(config)
 
     c = rs.colorizer()
     align_to = rs.stream.color
